@@ -1,0 +1,14 @@
+# Original source files — already copied into assets/ with clean, URL-friendly names.
+# Kept locally, excluded from the published site to keep the repo clean.
+/Certificate/
+/Rafi_CV.docx
+/Profile photo.jpg
+
+# Local preview tooling (not part of the published website)
+/.claude/
+
+# OS / editor junk
+Thumbs.db
+.DS_Store
+desktop.ini
+*.tmp
