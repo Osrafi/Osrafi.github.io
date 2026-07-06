@@ -110,6 +110,19 @@
   <main>
     <!-- HERO -->
     <section class="hero" id="hero">
+      <div class="hero__deco" aria-hidden="true">
+        <svg class="hex hex--1" viewBox="0 0 100 100">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" />
+          <circle cx="50" cy="50" r="26" />
+        </svg>
+        <svg class="hex hex--2" viewBox="0 0 100 100">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" />
+        </svg>
+        <svg class="hex hex--3" viewBox="0 0 100 100">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" />
+          <circle cx="50" cy="50" r="26" />
+        </svg>
+      </div>
       <div class="hero__grid">
         <div class="hero__content">
           <a class="eyebrow eyebrow--link reveal" data-reveal
@@ -120,8 +133,9 @@
               <path d="M7 17L17 7M9 7h8v8" />
             </svg>
           </a>
-          <h1 class="hero__title reveal" data-reveal>
-            Md. Omar Sha <span class="grad-text">Rafi</span>
+          <h1 class="hero__title">
+            <span class="w">Md.</span> <span class="w">Omar</span> <span class="w">Sha</span>
+            <span class="w"><span class="grad-text">Rafi</span></span>
           </h1>
           <p class="hero__role reveal" data-reveal>
             Natural Products Chemist &nbsp;·&nbsp; <span class="rotator" id="rotator">Phytochemistry</span> Researcher
@@ -690,24 +704,73 @@
             I use varied methods and value respect, collaboration, and open communication — and I see
             assessment as a way to build confidence and ownership, not just assign grades.
           </p>
-          <div class="teaching__mentorstats">
-            <div><span class="mono">6</span> MSc thesis students</div>
-            <div><span class="mono">12</span> undergraduate researchers</div>
-            <div><span class="mono">3</span> theory courses</div>
-            <div><span class="mono">4</span> laboratory courses</div>
-          </div>
         </div>
 
-        <div class="teaching__courses" data-reveal>
-          <h3 class="mono">Courses taught</h3>
-          <ul class="courses">
-            <li><span class="courses__code mono">CH 485</span> Medicinal Chemistry</li>
-            <li><span class="courses__code mono">CMG 100</span> General Chemistry</li>
-            <li><span class="courses__code mono">ORG 526</span> Carbohydrates &amp; Glycoconjugates</li>
-            <li><span class="courses__code mono">CMGL 100</span> General Chemistry Laboratory</li>
-            <li><span class="courses__code mono">CHL 324</span> Organic Chemistry Laboratory II</li>
-            <li><span class="courses__code mono">CHL 463</span> Industrial Chemistry Laboratory</li>
-          </ul>
+        <div class="teaching__mentorstats" data-reveal>
+          <div><span class="mono">6</span> MSc thesis students</div>
+          <div><span class="mono">12</span> undergraduate researchers</div>
+          <div><span class="mono">3</span> theory courses</div>
+          <div><span class="mono">4</span> laboratory courses</div>
+        </div>
+      </div>
+
+      <div class="courses-block">
+        <h3 class="timeline__heading mono" data-reveal>Courses taught</h3>
+        <div class="course-grid">
+          <article class="course" data-reveal>
+            <div class="course__top">
+              <span class="course__code mono">CH 485</span>
+              <span class="course__meta mono">4th Year · 2 cr</span>
+            </div>
+            <h4>Medicinal Chemistry</h4>
+            <p>Principles of drug design, structure–activity relationships, and biochemical mechanisms of
+              therapeutic agents — from pharmacokinetics to case studies of antibiotics and anticancer drugs.</p>
+          </article>
+          <article class="course" data-reveal>
+            <div class="course__top">
+              <span class="course__code mono">CMG 100</span>
+              <span class="course__meta mono">1st Year · 4 cr</span>
+            </div>
+            <h4>General Chemistry</h4>
+            <p>Foundation course for non-major students: atomic structure and bonding, states of matter,
+              chemical reactions, and an introduction to acids, bases, and solutions.</p>
+          </article>
+          <article class="course" data-reveal>
+            <div class="course__top">
+              <span class="course__code mono">ORG 526</span>
+              <span class="course__meta mono">MS · 3 cr</span>
+            </div>
+            <h4>Carbohydrates &amp; Glycoconjugates</h4>
+            <p>Advanced MS course on the chemistry, synthesis, and biological roles of carbohydrates
+              and their conjugates within the organic chemistry thesis group.</p>
+          </article>
+          <article class="course" data-reveal>
+            <div class="course__top">
+              <span class="course__code mono">CMGL 100</span>
+              <span class="course__meta mono">1st Year · 2 cr</span>
+            </div>
+            <h4>General Chemistry Laboratory</h4>
+            <p>Hands-on qualitative and quantitative analysis, simple synthesis and purification,
+              and laboratory safety — reinforcing the theory of CMG 100.</p>
+          </article>
+          <article class="course" data-reveal>
+            <div class="course__top">
+              <span class="course__code mono">CHL 324</span>
+              <span class="course__meta mono">3rd Year · 4 cr</span>
+            </div>
+            <h4>Organic Chemistry Laboratory II</h4>
+            <p>Multi-step organic synthesis, isolation and characterization of natural products,
+              and spectroscopic structure analysis with IR and NMR.</p>
+          </article>
+          <article class="course" data-reveal>
+            <div class="course__top">
+              <span class="course__code mono">CHL 463</span>
+              <span class="course__meta mono">4th Year · 2 cr</span>
+            </div>
+            <h4>Industrial Chemistry Laboratory</h4>
+            <p>Pilot-scale synthesis and process optimization, analytical methods for industrial
+              products, and environmental &amp; safety practice for real-world chemistry.</p>
+          </article>
         </div>
       </div>
     </section>

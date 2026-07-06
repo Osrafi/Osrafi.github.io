@@ -172,6 +172,35 @@
     }, 2600);
   }
 
+  /* ---------- Cursor spotlight + portrait tilt (fine pointers only) ---------- */
+  if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
+    const spotEls = document.querySelectorAll('.rcard, .skillcard, .cert, .pub, .grant, .honor, .stat, .contact-card, .course');
+    spotEls.forEach(function (el) {
+      el.classList.add('has-spot');
+      const s = document.createElement('i');
+      s.className = 'spot';
+      el.appendChild(s);
+      el.addEventListener('pointermove', function (e) {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+    });
+
+    const portrait = document.querySelector('.portrait');
+    const frame = portrait ? portrait.querySelector('.portrait__frame') : null;
+    if (portrait && frame) {
+      portrait.addEventListener('pointermove', function (e) {
+        const r = portrait.getBoundingClientRect();
+        const dx = (e.clientX - r.left) / r.width - 0.5;
+        const dy = (e.clientY - r.top) / r.height - 0.5;
+        frame.style.transform =
+          'perspective(700px) rotateY(' + (dx * 10).toFixed(2) + 'deg) rotateX(' + (dy * -10).toFixed(2) + 'deg)';
+      }, { passive: true });
+      portrait.addEventListener('pointerleave', function () { frame.style.transform = ''; });
+    }
+  }
+
   /* ---------- Molecular canvas ---------- */
   const canvas = document.getElementById('molecularCanvas');
   if (canvas && !prefersReduced) {

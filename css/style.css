@@ -596,12 +596,33 @@ ul, ol { list-style: none; }
 }
 .teaching__mentorstats .mono { color: var(--accent); font-size: 1.5rem; font-weight: 500; display: block; }
 
-.teaching__courses { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; backdrop-filter: blur(8px); }
-.teaching__courses h3 { font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-.courses { display: grid; gap: 14px; }
-.courses li { display: flex; align-items: baseline; gap: 12px; color: var(--text-soft); font-size: 0.96rem; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-.courses li:last-child { border-bottom: none; padding-bottom: 0; }
-.courses__code { color: var(--accent-2); font-size: 0.78rem; flex: none; min-width: 74px; }
+.teaching__mentorstats { align-content: start; }
+
+.courses-block { margin-top: 52px; }
+.course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.course {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 22px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.course:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: var(--glow); background: var(--card-hover); }
+.course__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.course__code {
+  font-size: 0.76rem;
+  color: var(--accent-2);
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-2) 36%, transparent);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.course:hover .course__code { background: var(--accent-2); color: var(--bg); }
+.course__meta { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.course h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.08rem; margin-bottom: 9px; }
+.course p { color: var(--text-soft); font-size: 0.9rem; line-height: 1.6; }
 
 /* ---------- Honors ---------- */
 .honors-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -756,7 +777,7 @@ a.contact-card:hover { transform: translateY(-4px); border-color: var(--accent);
   .portrait { width: min(280px, 70vw); }
   .about, .teaching { grid-template-columns: 1fr; gap: 34px; }
   .timeline-wrap { grid-template-columns: 1fr; gap: 40px; }
-  .research-grid, .skills-grid, .grant-grid { grid-template-columns: repeat(2, 1fr); }
+  .research-grid, .skills-grid, .grant-grid, .course-grid { grid-template-columns: repeat(2, 1fr); }
   .cert-grid { grid-template-columns: repeat(2, 1fr); }
   .honors-grid { grid-template-columns: 1fr; }
 
@@ -784,7 +805,7 @@ a.contact-card:hover { transform: translateY(-4px); border-color: var(--accent);
 @media (max-width: 560px) {
   .section { padding: 72px 20px; }
   .hero { padding: 110px 20px 70px; }
-  .research-grid, .skills-grid, .grant-grid, .about__stats, .contact__cards, .teaching__mentorstats { grid-template-columns: 1fr; }
+  .research-grid, .skills-grid, .grant-grid, .about__stats, .contact__cards, .teaching__mentorstats, .course-grid { grid-template-columns: 1fr; }
   .cert-grid { grid-template-columns: 1fr; }
   .pub { grid-template-columns: 1fr; gap: 10px; }
   .pub__year { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
@@ -942,6 +963,119 @@ a.contact-card:hover { transform: translateY(-4px); border-color: var(--accent);
   .sbtn { padding: 10px 14px; font-size: 0.84rem; }
 }
 
+/* =========================================================
+   Beauty pass 2 — hero entrance, benzene decor, spotlight,
+   underline draws, tag pops, tilt, footer shimmer
+   ========================================================= */
+
+/* ---------- Hero title word entrance ---------- */
+.hero__title .w { display: inline-block; animation: wordRise 0.9s cubic-bezier(.2,.7,.2,1) both; }
+.hero__title .w:nth-child(1) { animation-delay: 0.05s; }
+.hero__title .w:nth-child(2) { animation-delay: 0.16s; }
+.hero__title .w:nth-child(3) { animation-delay: 0.27s; }
+.hero__title .w:nth-child(4) { animation-delay: 0.42s; }
+@keyframes wordRise {
+  from { opacity: 0; transform: translateY(42px) rotate(1.5deg); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0) rotate(0);        filter: blur(0); }
+}
+
+/* ---------- Floating benzene rings ---------- */
+.hero__deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.hex { position: absolute; }
+.hex polygon, .hex circle { fill: none; stroke: currentColor; stroke-width: 2; }
+.hex--1 { width: 150px; height: 150px; top: 13%; right: 5%; color: var(--accent); opacity: 0.13; animation: hexDrift 24s ease-in-out infinite; }
+.hex--2 { width: 84px; height: 84px; bottom: 15%; left: 3%; color: var(--accent-2); opacity: 0.12; animation: hexDrift 30s ease-in-out infinite reverse; }
+.hex--3 { width: 56px; height: 56px; top: 64%; right: 22%; color: var(--accent-3); opacity: 0.1; animation: hexDrift 20s ease-in-out infinite; }
+@keyframes hexDrift {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-26px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+
+/* ---------- Section heading underline draw ---------- */
+.section__head::after {
+  content: "";
+  display: block;
+  width: 76px; height: 3px;
+  margin-top: 20px;
+  border-radius: 3px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s 0.25s cubic-bezier(.2,.7,.2,1);
+}
+.section__head.is-visible::after { transform: scaleX(1); }
+
+/* ---------- Cursor spotlight on cards ---------- */
+.has-spot { position: relative; }
+.spot {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 13%, transparent), transparent 45%);
+}
+.has-spot:hover .spot { opacity: 1; }
+
+/* ---------- Portrait 3D tilt ---------- */
+.portrait__frame { transition: transform 0.2s ease-out; will-change: transform; }
+
+/* ---------- Timeline: live dot + hover accent ---------- */
+.tl-item__title { transition: color 0.3s ease; }
+.tl-item:hover .tl-item__title { color: var(--accent); }
+.timeline .tl-item:first-of-type .tl-item__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: ping 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping { 0% { transform: scale(1); opacity: 0.65; } 75%, 100% { transform: scale(2.8); opacity: 0; } }
+
+/* ---------- Skill tag stagger pop ---------- */
+.skillcard.is-visible .tags span { animation: tagPop 0.5s cubic-bezier(.2,.7,.2,1) both; }
+.skillcard.is-visible .tags span:nth-child(1) { animation-delay: 0.12s; }
+.skillcard.is-visible .tags span:nth-child(2) { animation-delay: 0.17s; }
+.skillcard.is-visible .tags span:nth-child(3) { animation-delay: 0.22s; }
+.skillcard.is-visible .tags span:nth-child(4) { animation-delay: 0.27s; }
+.skillcard.is-visible .tags span:nth-child(5) { animation-delay: 0.32s; }
+.skillcard.is-visible .tags span:nth-child(6) { animation-delay: 0.37s; }
+.skillcard.is-visible .tags span:nth-child(7) { animation-delay: 0.42s; }
+.skillcard.is-visible .tags span:nth-child(8) { animation-delay: 0.47s; }
+.skillcard.is-visible .tags span:nth-child(9) { animation-delay: 0.52s; }
+@keyframes tagPop { from { opacity: 0; transform: translateY(10px) scale(0.85); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* ---------- Footer shimmer line ---------- */
+.footer { border-top: none; position: relative; }
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grad);
+  background-size: 200% auto;
+  animation: gradShift 5s linear infinite;
+  opacity: 0.8;
+}
+
+/* ---------- Decorative quote mark ---------- */
+.teaching__philosophy blockquote { position: relative; }
+.teaching__philosophy blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.52em; left: 14px;
+  font-family: var(--font-display);
+  font-size: 4.4rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.2s !important; scroll-behavior: auto !important; }
@@ -949,4 +1083,6 @@ a.contact-card:hover { transform: translateY(-4px); border-color: var(--accent);
   .molecular-canvas { display: none; }
   .orbs { display: none; }
   .rcard--feature::after { display: none; }
+  .hex { display: none; }
+  .spot { display: none; }
 }
