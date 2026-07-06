@@ -793,9 +793,160 @@ a.contact-card:hover { transform: translateY(-4px); border-color: var(--accent);
   .nav__brand-text { display: none; }
 }
 
+/* =========================================================
+   Enhancements — aurora orbs, colorful socials, ML card,
+   rotating headline, extra motion
+   ========================================================= */
+
+/* ---------- Drifting aurora orbs ---------- */
+.orbs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+[data-theme="light"] .orb { opacity: 0.38; mix-blend-mode: multiply; filter: blur(52px); }
+.orb--1 { width: 30vw; height: 30vw; left: -8vw; top: -6vw; background: radial-gradient(circle, rgba(var(--accent-rgb),0.8), transparent 70%); animation: drift1 26s ease-in-out infinite; }
+.orb--2 { width: 27vw; height: 27vw; right: -8vw; top: 22vh; background: radial-gradient(circle, rgba(var(--accent-2-rgb),0.7), transparent 70%); animation: drift2 32s ease-in-out infinite; }
+.orb--3 { width: 26vw; height: 26vw; left: 32vw; bottom: -12vw; background: radial-gradient(circle, rgba(167,139,250,0.55), transparent 70%); animation: drift3 30s ease-in-out infinite; }
+[data-theme="light"] .orb--3 { background: radial-gradient(circle, rgba(176,132,47,0.5), transparent 70%); }
+
+@keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(12vw,8vh) scale(1.15); } 66% { transform: translate(6vw,-6vh) scale(0.95); } }
+@keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-14vw,10vh) scale(1.2); } }
+@keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 40% { transform: translate(-8vw,-10vh) scale(1.1); } 75% { transform: translate(10vw,-4vh) scale(0.9); } }
+
+/* animate the gradient text so it shimmers */
+.grad-text { background-size: 200% auto; animation: gradShift 6s ease infinite; }
+@keyframes gradShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+
+/* ---------- Clickable eyebrow ---------- */
+.eyebrow--link { transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.eyebrow--link svg { opacity: 0.6; transition: transform 0.3s ease, opacity 0.3s ease; }
+.eyebrow--link:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); box-shadow: var(--glow); }
+.eyebrow--link:hover svg { opacity: 1; transform: translate(2px,-2px); }
+
+/* ---------- Rotating headline word ---------- */
+.rotator { color: var(--accent); font-weight: 600; display: inline-block; position: relative; }
+.rotator::after { content: ""; }
+.rotator.swap { animation: rotSwap 0.5s ease; }
+@keyframes rotSwap { 0% { opacity: 0; transform: translateY(10px); filter: blur(4px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
+
+/* ---------- Colorful social icons (hero) ---------- */
+.hero__socials { flex-wrap: wrap; }
+.s-icon {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.s-icon::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--brand, var(--accent));
+  transform: translateY(102%);
+  transition: transform 0.32s cubic-bezier(.5,.15,.2,1);
+  z-index: -1;
+}
+.s-icon:hover { color: #fff; border-color: transparent; transform: translateY(-5px); box-shadow: 0 12px 26px -10px var(--brand, var(--accent)); }
+.s-icon:hover::before { transform: translateY(0); }
+
+/* brand colors (shared by icon + pill buttons) */
+.social--email    { --brand: #ea4335; }
+.social--scholar  { --brand: #4285f4; }
+.social--rg       { --brand: #00d0af; }
+.social--orcid    { --brand: #a6ce39; }
+.social--linkedin { --brand: #0a66c2; }
+.social--github   { --brand: #6e5494; }
+.social--facebook { --brand: #1877f2; }
+.social--x        { --brand: #111827; }
+[data-theme="light"] .social--x { --brand: #000000; }
+.social--du       { --brand: #0b6b3a; }
+
+/* ---------- Colorful social pill buttons (contact) ---------- */
+.social-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+.sbtn {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: color-mix(in srgb, var(--bg-2) 55%, transparent);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.28s cubic-bezier(.5,.15,.2,1), color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+.sbtn svg { position: relative; z-index: 1; transition: transform 0.28s ease; }
+.sbtn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--brand, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.34s cubic-bezier(.5,.15,.2,1);
+  z-index: 0;
+}
+.sbtn > span { position: relative; z-index: 1; }
+.sbtn:hover { color: #fff; border-color: transparent; transform: translateY(-4px); box-shadow: 0 14px 30px -12px var(--brand, var(--accent)); }
+.sbtn:hover::before { transform: scaleX(1); }
+.sbtn:hover svg { transform: scale(1.15) rotate(-4deg); }
+.sbtn--cv { --brand: linear-gradient(120deg, var(--accent), var(--accent-2)); }
+.sbtn--cv::before { background: var(--grad); }
+.sbtn--cv:hover { box-shadow: 0 14px 30px -12px rgba(var(--accent-rgb),0.7); }
+
+/* ---------- Featured ML research card ---------- */
+.rcard--feature {
+  grid-column: span 2;
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background:
+    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%),
+    var(--panel);
+}
+.rcard--feature::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -30%;
+  width: 60%; height: 200%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 22%, transparent), transparent);
+  transform: rotate(18deg);
+  animation: sheen 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sheen { 0%, 65% { left: -40%; } 100% { left: 130%; } }
+.rcard--feature h3 { font-size: 1.34rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% auto; animation: gradShift 6s ease infinite; }
+.rcard--feature .rcard__icon { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 14%, transparent); }
+.rcard__flag {
+  position: absolute; top: 18px; right: 18px;
+  font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent-2);
+  padding: 4px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-2) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-2) 40%, transparent);
+}
+
+/* pulse ring on portrait glow */
+.portrait__frame { animation: portraitGlow 5s ease-in-out infinite; }
+@keyframes portraitGlow { 0%,100% { box-shadow: var(--shadow); } 50% { box-shadow: var(--shadow), 0 0 42px -6px rgba(var(--accent-rgb),0.5); } }
+
+@media (max-width: 900px) {
+  .rcard--feature { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .rcard--feature { grid-column: auto; }
+  .social-buttons { gap: 9px; }
+  .sbtn { padding: 10px 14px; font-size: 0.84rem; }
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.2s !important; scroll-behavior: auto !important; }
   [data-reveal] { opacity: 1; transform: none; }
   .molecular-canvas { display: none; }
+  .orbs { display: none; }
+  .rcard--feature::after { display: none; }
 }

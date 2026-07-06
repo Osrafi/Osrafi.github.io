@@ -157,6 +157,21 @@
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Rotating headline word ---------- */
+  const rotator = document.getElementById('rotator');
+  if (rotator && !prefersReduced) {
+    const words = ['Phytochemistry', 'Drug Discovery', 'Machine Learning', 'Cheminformatics', 'Medicinal Chemistry'];
+    let ri = 0;
+    setInterval(function () {
+      ri = (ri + 1) % words.length;
+      rotator.classList.remove('swap');
+      // force reflow so the animation restarts
+      void rotator.offsetWidth;
+      rotator.textContent = words[ri];
+      rotator.classList.add('swap');
+    }, 2600);
+  }
+
   /* ---------- Molecular canvas ---------- */
   const canvas = document.getElementById('molecularCanvas');
   if (canvas && !prefersReduced) {
