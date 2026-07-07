@@ -495,7 +495,6 @@ ul, ol { list-style: none; }
   margin-left: 6px;
   vertical-align: middle;
 }
-.badge--scopus { background: color-mix(in srgb, var(--accent-2) 16%, transparent); color: var(--accent-2); border: 1px solid color-mix(in srgb, var(--accent-2) 40%, transparent); }
 .badge--role { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent); }
 
 .conf { margin-top: 34px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 30px; }
@@ -1074,6 +1073,114 @@ a.contact-card:hover { transform: translateY(-4px); border-color: var(--accent);
   color: var(--accent);
   opacity: 0.28;
   pointer-events: none;
+}
+
+/* =========================================================
+   Beauty pass 3 — publications & conference presentations
+   ========================================================= */
+
+/* ghost issue numbers 01–06 */
+.pub { counter-increment: pub; overflow: hidden; grid-template-columns: 100px 1fr; }
+.pub::before {
+  content: counter(pub, decimal-leading-zero);
+  position: absolute;
+  top: 4px; right: 16px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.4rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--text) 7%, transparent);
+  pointer-events: none;
+  transition: color 0.45s ease, transform 0.45s ease;
+}
+.pub:hover::before {
+  color: color-mix(in srgb, var(--accent) 30%, transparent);
+  transform: translateY(-4px) scale(1.06);
+}
+
+/* gradient spine that draws in on hover */
+.pub::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--grad);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s cubic-bezier(.2,.7,.2,1);
+}
+.pub:hover::after { transform: scaleY(1); }
+
+/* year as a gradient-tinted pill */
+.pub__year {
+  border-right: none;
+  border-bottom: none;
+  align-self: start;
+  justify-self: start;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 11%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+.pub:hover .pub__year {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 8px 20px -8px var(--accent);
+}
+
+/* title, journal, and author accents */
+.pub__title { transition: color 0.35s ease; padding-right: 56px; }
+.pub:hover .pub__title { color: var(--accent); }
+.pub__venue em { color: var(--accent-2); transition: color 0.3s ease; }
+.pub__authors .me {
+  padding: 1px 8px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--accent-2) 13%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-2) 30%, transparent);
+  white-space: nowrap;
+}
+
+/* conference presentations */
+.conf { transition: border-color 0.35s ease, box-shadow 0.35s ease; }
+.conf:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+.conf__list li {
+  position: relative;
+  padding: 15px 16px 15px 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.conf__list li::before {
+  content: "";
+  position: absolute;
+  left: 16px; top: 21px;
+  width: 0; height: 0;
+  border-left: 11px solid var(--accent);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-radius: 2px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.conf__list li:hover {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-color: var(--border);
+  transform: translateX(6px);
+}
+.conf__list li:hover::before {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 60%, transparent));
+}
+.conf__list strong { transition: color 0.3s ease; }
+.conf__list li:hover strong { color: var(--accent); }
+
+@media (max-width: 560px) {
+  .pub { grid-template-columns: 1fr; }
+  .pub::before { font-size: 2.5rem; top: auto; bottom: 8px; }
+  .pub__title { padding-right: 0; }
 }
 
 /* ---------- Reduced motion ---------- */
